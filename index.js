@@ -12,13 +12,6 @@ app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', './views');
 
-/**
- * /users/userId -> userId is a number
- *
- * User {}
- * 404
- */
-
 function getData() {
   return [
     { id: 1, name: "User A" },
