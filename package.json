@@ -4,7 +4,7 @@
   "description": "This is our first NodeJS Application in which the code is saved on GitHub!",
   "main": "index.js",
   "scripts": {
-   "start": "nodemon indexWithExpress.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",

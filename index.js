@@ -1,34 +1,77 @@
 const express = require("express");
 const app = express();
 
-app.get("/", function (req, res) {
-  res.setHeader("content-type", "text/html");
-  res.send("<h1 style='color: red'>Hello world from Express/!</h1>");
+/**
+ * /users/userId -> userId is a number
+ *
+ * User {}
+ * 404
+ */
+
+function getData() {
+  return [
+    { id: 1, name: "User A" },
+    { id: 2, name: "User B" },
+    { id: 3, name: "User C" },
+  ];
+}
+
+app.get("/users/:userId", function (req, res) {
+  const userId = parseInt(req.params.userId);
+  if (userId < 0) {
+    res.statusCode = 400;
+    res.send(``);
+    return;
+  }
+
+  if(userId === 100) {
+    res.statusCode = 400;
+    res.send({ message: "You can't access this user!" });
+    return;
+  }
+
+  const data = getData();
+  const user = data.find(function (item) {
+    return item.id === userId;
+  });
+
+  if (!user) {
+    res.status(404);
+    res.json({ message: "User not found" });
+    return;
+  }
+
+  res.json({ data: user });
 });
 
-app.get("/:id", function (req, res) {
-  const query = req.query;
-  console.log(query);
-    res.setHeader("content-type", "text/html");
-    res.send("<h1 style='color: red'>Hello world from Express POST API call/!</h1>");
-});
 
-app.delete("/:id", function(req, res) {
-  res.sendStatus(201);
-  res.send("<h1 style='color: red'>Delete API call/!</h1>");
-})
-
-app.get("/hello", function(req, res) {
-    res.send("<h1 style='color: purple'>Hello world!</h1>");
-});
-
-app.get("/hello2", function(req, res) {
-    res.send("<h1 style='color: yellow'>Hello world!</h1>");
-});
-
-app.get("/hello3", function(req, res) {
-    res.send("<h1 style='color: green'>Hello world!</h1>");
-});
+// ASA NU!
+// app.get("/users/:userId", function (req, res) {
+//   const userId = parseInt(req.params.userId);
+//   if (userId > 0) {
+//     if(userId === 100) {
+//       res.status(404);
+//       res.json({ message: "You can't access this user!" });
+//     } else {
+//       const data = getData();
+//       const user = data.find(function (item) {
+//         return item.id === userId;
+//       });
+  
+//       if (user) {
+//         res.json({ data: user });
+//         return;
+//       } else {
+//         res.status(404);
+//         res.json({ message: "User not found!" });
+//         return;
+//       }
+//     }
+//   } else {
+//     res.status(400);
+//     res.json({ message: "Invalid user id" });
+//   }
+// });
 
 const PORT = 3000;
 
