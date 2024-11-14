@@ -1,5 +1,10 @@
 const express = require("express");
+const handlebars = require('express-handlebars');
 const app = express();
+
+app.engine('handlebars', handlebars.engine());
+app.set('view engine', 'handlebars');
+app.set('views', './views');
 
 /**
  * /users/userId -> userId is a number
@@ -44,6 +49,9 @@ app.get("/users/:userId", function (req, res) {
   res.json({ data: user });
 });
 
+app.get("/html-content", function(req, res) {
+  res.render('home');
+});
 
 // ASA NU!
 // app.get("/users/:userId", function (req, res) {
