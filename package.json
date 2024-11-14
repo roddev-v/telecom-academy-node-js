@@ -4,12 +4,16 @@
   "description": "This is our first NodeJS Application in which the code is saved on GitHub!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+   "start": "nodemon indexWithExpress.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.21.1",
     "give-me-a-joke": "^0.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
   }
 }
