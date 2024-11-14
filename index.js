@@ -1,6 +1,12 @@
 const express = require("express");
 const handlebars = require('express-handlebars');
+const bodyParser = require('body-parser')
+
 const app = express();
+
+const jsonParser = bodyParser.json({limit: '5mb'});
+
+app.use(jsonParser);
 
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
@@ -51,6 +57,16 @@ app.get("/users/:userId", function (req, res) {
 
 app.get("/html-content", function(req, res) {
   res.render('home');
+});
+
+app.get("/query-params", function(req, res) {
+  console.log(req.query);
+  res.send();
+});
+
+app.post("/body", function(req, res) {
+  console.log(req.body);
+  res.send();
 });
 
 // ASA NU!
